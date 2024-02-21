@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__.'../../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+
+$flightAnalysisService = new \App\Service\FlightAnalysisService();
+$parseCommand = new \App\Infrastructure\ParseCommand($flightAnalysisService);
+
+$application = new Application();
+$application->add($parseCommand);
+
+try {
+    $application->run();
+} catch (Exception $e) {
+    exit(1);
+}
